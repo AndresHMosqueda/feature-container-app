@@ -1,14 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+
+import { createFeatureHub } from "@feature-hub/core";
+import { defineExternals, loadAmdModule } from "@feature-hub/module-loader-amd";
+import { FeatureHubContextProvider } from "@feature-hub/react";
+import { FeatureAppLoader } from "@feature-hub/react";
+
+defineExternals({ react: React });
+
+const { featureAppManager } = createFeatureHub("test:container-integrator", {
+  featureServiceDefinitions: [],
+  moduleLoader: loadAmdModule,
+  providedExternals: { react: "16.8.6" },
+});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <FeatureHubContextProvider value={{ featureAppManager }}>
+    <FeatureAppLoader
+      featureAppId="test:hello-featureApp"
+      featureAppName="some-feature-app"
+      src="http://localhost:3000"
+    />
+  </FeatureHubContextProvider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
