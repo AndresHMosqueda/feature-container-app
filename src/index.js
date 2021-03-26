@@ -21,7 +21,7 @@ ReactDOM.render(
     <FeatureAppLoader
       featureAppId="test:hello-featureApp"
       featureAppName="some-feature-app"
-      src="http://localhost:3000"
+      src="http://localhost:3004/someLibName.js"
     />
   </FeatureHubContextProvider>,
   document.getElementById("root")
