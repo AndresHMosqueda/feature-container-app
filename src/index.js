@@ -14,7 +14,7 @@ defineExternals({
 const { featureAppManager } = createFeatureHub("test:container-integrator", {
   featureServiceDefinitions: [],
   moduleLoader: loadAmdModule,
-  providedExternals: { react: "16.8.6" },
+  providedExternals: { react: "16.8.6", "@feature-hub/react": "2.8.1" },
 });
 
 ReactDOM.render(
