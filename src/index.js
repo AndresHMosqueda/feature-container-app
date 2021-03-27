@@ -8,8 +8,9 @@ import { defineExternals, loadAmdModule } from "@feature-hub/module-loader-amd";
 import { FeatureHubContextProvider } from "@feature-hub/react";
 import { FeatureAppLoader } from "@feature-hub/react";
 
-defineExternals({ react: React });
-
+defineExternals({
+  react: React,
+});
 const { featureAppManager } = createFeatureHub("test:container-integrator", {
   featureServiceDefinitions: [],
   moduleLoader: loadAmdModule,
@@ -19,9 +20,8 @@ const { featureAppManager } = createFeatureHub("test:container-integrator", {
 ReactDOM.render(
   <FeatureHubContextProvider value={{ featureAppManager }}>
     <FeatureAppLoader
-      featureAppId="test:hello-featureApp"
-      featureAppName="some-feature-app"
-      src="http://localhost:3004/someLibName.js"
+      featureAppId="test:hello-component"
+      src="http://localhost:3004/myFeatureApp.js"
     />
   </FeatureHubContextProvider>,
   document.getElementById("root")
