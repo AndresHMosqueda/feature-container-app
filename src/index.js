@@ -7,13 +7,23 @@ import { createFeatureHub } from "@feature-hub/core";
 import { defineExternals, loadAmdModule } from "@feature-hub/module-loader-amd";
 import { FeatureHubContextProvider } from "@feature-hub/react";
 import { FeatureAppLoader } from "@feature-hub/react";
-// import HelloServiceDefinition from "HelloServiceDefinition";
 
 defineExternals({
   react: React,
 });
-const { featureAppManager } = createFeatureHub("test:container", {
-  featureServiceDefinitions: [],
+
+let myFeatureServiceDefinition;
+
+(async () => {
+  myFeatureServiceDefinition = await loadAmdModule(
+    "http://localhost:3004/myFeatureAppService.js"
+  );
+})()
+  .then((res) => console.log("LA pinche respuesta!!", res))
+  .catch(console.error);
+
+const { featureAppManager } = createFeatureHub("test:container-integrator", {
+  featureServiceDefinitions: [myFeatureServiceDefinition],
   moduleLoader: loadAmdModule,
   providedExternals: { react: "16.8.6", "@feature-hub/react": "2.8.1" },
 });
