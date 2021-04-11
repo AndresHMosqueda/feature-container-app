@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@andreeesh/feature-service": "^1.0.0",
     "@babel/core": "^7.13.10",
     "@babel/generator": "^7.13.9",
     "@feature-hub/core": "^2.8.1",
+    "@feature-hub/logger": "^2.8.1",
     "@feature-hub/module-loader-amd": "^2.8.1",
+    "@feature-hub/module-loader-commonjs": "^2.8.1",
     "@feature-hub/react": "^2.8.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

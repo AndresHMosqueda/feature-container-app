@@ -8,18 +8,9 @@ const devConfig = {
   mode: "development",
   devServer: {
     port: 3001,
-    // historyApiFallback: {
-    //   index: "index.html",
-    // },
   },
+
   plugins: [
-    new ModuleFederationPlugin({
-      name: "container",
-      remotes: {
-        marketing: "marketing@http://localhost:8081/remoteEntry.js",
-      },
-      shared: packageJson.dependencies,
-    }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
