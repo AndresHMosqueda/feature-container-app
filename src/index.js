@@ -1,25 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
-
 import { createFeatureHub } from "@feature-hub/core";
 import { defineExternals, loadAmdModule } from "@feature-hub/module-loader-amd";
 import { FeatureHubContextProvider } from "@feature-hub/react";
 import { FeatureAppLoader } from "@feature-hub/react";
-// import myService from "@andreeesh/feature-service";
-// const module = await import("http://localhost:3004/myFeatureAppService.js");
 
-const { myFeatureServiceDefinition } = loadAmdModule(
-  "http://localhost:3004/myFeatureAppService.js"
-);
+let resp;
 
+let loadAMd = (async () => {
+  resp = await loadAmdModule("http://localhost:3004/myFeatureAppService.js");
+  console.log("resP", resp);
+  return resp.__useDefault.default;
+})();
+
+// let loadAMd = loadAmdModule(
+//   "http://localhost:3004/myFeatureAppService.js"
+// ).then((item) => {
+//   console.log("Resp", item);
+//   return item.__useDefault;
+// });
+
+console.log("loadAMd", loadAMd);
 defineExternals({
   react: React,
 });
 
 const { featureAppManager } = createFeatureHub("test:container-integrator", {
-  featureServiceDefinitions: [myFeatureServiceDefinition],
+  featureServiceDefinitions: [loadAMd],
   moduleLoader: loadAmdModule,
   providedExternals: { react: "16.8.6", "@feature-hub/react": "2.8.1" },
 });
@@ -33,8 +40,3 @@ ReactDOM.render(
   </FeatureHubContextProvider>,
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
